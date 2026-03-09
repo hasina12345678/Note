@@ -2,6 +2,7 @@ package com.note;
 
 import com.note.model.Note;
 import com.note.service.NoteServ;
+import com.note.service.NoteFinalServ;
 
 import java.util.List;
 
@@ -18,14 +19,14 @@ public class Application {
     }
 
     @Bean
-    public CommandLineRunner demo(NoteServ candidatServ) {
+    public CommandLineRunner demo(NoteServ noteServ, NoteFinalServ noteFinalServ) {
         return args -> {
 
             Long candidatId = 1L;
             Long matiereId = 1L;
             Long examenId = 1L;
 
-            List<Note> notes = candidatServ.getNotesByCandidatIdAndMatiereIdAndExamenId(
+            List<Note> notes = noteServ.getNotesByCandidatIdAndMatiereIdAndExamenId(
                     candidatId, matiereId, examenId
             );
 
@@ -34,9 +35,16 @@ public class Application {
                 System.out.println(n.getNote());
             }
 
-            Double sumDiffs = candidatServ.getSumDiffsNotes(notes);
+            Double sumDiffs = noteServ.getSumDiffsNotes(notes);
 
             System.out.println("Somme des différences entre notes : " + sumDiffs);
+
+            double noteFinal = noteFinalServ.getNoteFinalByMatiere(candidatId, matiereId, examenId);
+
+            System.out.println("Note final = " + noteFinal);
+
         };
     }
+
+
 }

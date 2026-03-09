@@ -5,6 +5,8 @@ import com.note.repository.CandidatRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -12,6 +14,10 @@ public class CandidatServ {
 
     @Autowired
     private CandidatRepo candidatRepo;
+
+    public List<Candidat> findAll() {
+        return candidatRepo.findAll();
+    }
 
     public Candidat save(Candidat candidat) {
         return candidatRepo.save(candidat);
